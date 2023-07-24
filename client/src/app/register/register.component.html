@@ -1,23 +1,76 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<!-- <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off"> -->
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
     <h2 class="text-center text-primary">Iyandikishe</h2>
     <hr>
-    <div class="mb-3">
-        <input type="text" class="form-control" name="username"[(ngModel)]="model.username" placeholder="Izina Ukoresha">
-    </div>
-    <div class="mb-3">
-        <input type="password" class="form-control" name="password"[(ngModel)]="model.password" placeholder="Ijambo ry'ibanga">
-    </div>
-    <!-- Parent to child or child to parent communiction -->
     <!-- <div class="mb-3">
-        <label>Who is your favourite user?</label>
-        <select class="form-select">
-            <option *ngFor="let user of usersFromHomeComponent" [value]="user.userName">
-                {{user.userName}}
-            </option>
-        </select>
+        <input type="text"
+               [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched" 
+               class="form-control" 
+               formControlName="username" 
+               placeholder="Izina Ukoresha">
+        <div class="invalid-feedback">Urasabwa kwinjiza izina </div>
     </div> -->
+
+    <!-- <div class="mb-3">
+        <input type="password" 
+        [class.is-invalid]="registerForm.get('password')?.errors && registerForm.get('password')?.touched" 
+               class="form-control" 
+               formControlName="password"
+               placeholder="Ijambo ry'ibanga">
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('required')">
+            Please enter a password
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('minlength')">
+            Password must be at least 4 characters
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('maxlength')">
+            Password must be at most 9 characters
+        </div>
+    </div> -->
+
+    <!-- <div class="mb-3">
+        <input type="password" 
+        [class.is-invalid]="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched" 
+               class="form-control" 
+               formControlName="confirmPassword"
+               placeholder="Shimangira Ijambo ry'ibanga">
+        <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.hasError('required')"> 
+            Please enter a confirmation password
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.hasError('notMatching')"> 
+            confirm password must match password
+        </div>
+    </div> -->
+
+    <div class="mb-3">
+        <label style="margin-right:10px">Ndi: </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="male" formControlName="gender"> IgitsinaGabo
+        </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input ms-3" value="female" formControlName="gender"> IgitsinaGare
+        </label>
+    </div>
+
+    <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Izina'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'knownAs'"></app-text-input>
+    <!-- <app-text-input [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Itariki yamavuko'" [type]="date"></app-text-input> -->
+    <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [maxDate]="maxDate" [label]="'Itariki yamavuko'"></app-date-picker>
+    <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'Umugi'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Igihugu'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Ijambo ryibanga'" [type]="'password'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Shimangira ijambo ryibanga'" [type]="'password'"></app-text-input>
+
+    <div class="row" *ngIf="validationErrors">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">
+                {{error}}
+            </li>"
+        </ul>
+    </div>
+
     <div class="text-center">
-        <button class="btn btn-success me-2" type="submit">Iyandikishe</button>
+        <button [disabled]="!registerForm.valid" class="btn btn-success me-2" type="submit">Iyandikishe</button>
         <button class="btn btn-default" type="button" (click)="cancel()">Guhagarika</button>
     </div>
 </form>
