@@ -25,10 +25,4 @@ export class TextInputComponent implements ControlValueAccessor {
     return this.ngControl.control as FormControl
   }
 
-
-
-  // setDisabledState?(isDisabled: boolean): void {
-  //   throw new Error('Method not implemented.');
-  // }
-
 }

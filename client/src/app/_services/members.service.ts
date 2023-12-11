@@ -49,28 +49,6 @@ export class MembersService {
     return;
   }
 
-  // getMembers(page?:number, itemsPerPage?: number) {
-  //   let params = new HttpParams();
-
-  //   if (page && itemsPerPage) {
-  //     params = params.append('pageNumber', page);
-  //     params = params.append('pageSize', itemsPerPage);
-  //   }
-
-  //   return this.http.get<Member[]>(this.baseUrl + 'users', {observe: 'response', params}).pipe(
-  //     map(response => {
-  //       if (response.body) {
-  //         this.paginatedResult.result = response.body;
-  //       }
-  //       const pagination = response.headers.get('Pagination');
-  //       if (pagination) {
-  //         this.paginatedResult.pagination = JSON.parse(pagination);
-  //       }
-  //       return this.paginatedResult;
-  //     })
-  //   )
-  // }
-
   getMembers(userParams: UserParams) {
     const response = this.memberCache.get(Object.values(userParams).join('-'));
 
@@ -95,12 +73,6 @@ export class MembersService {
       })
     );
   }
-
-  // getMember(username: string) {
-  //   const member = this.members.find(x => x.userName === username);
-  //   if (member) return of(member);
-  //   return this.http.get<Member>(this.baseUrl + 'users/' + username);
-  // }
 
   getMember(username: string) {
     const member = [...this.memberCache.values()]

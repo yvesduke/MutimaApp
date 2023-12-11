@@ -1,5 +1,3 @@
-<!-- <h1 *ngIf="member">{{member.knownAs}}</h1> -->
-
 <div class="row" *ngIf="member">
   <div class="col-4">
     <div class="card">
@@ -19,11 +17,11 @@
         </div>
         <div>
           <strong>Last active:</strong>
-          <p>{{ member.lastActive + 'Z' | timeago}}</p>
+          <p>{{ member.lastActive + "Z" | timeago }}</p>
         </div>
         <div>
-          <strong>Memeber since:</strong>
-          <p>{{ member.created  | date:'dd MMM yyyy'}}</p>
+          <strong>Member since:</strong>
+          <p>{{ member.created | date : "dd MMM yyyy" }}</p>
         </div>
       </div>
       <div class="card-footer">
@@ -35,7 +33,7 @@
     </div>
   </div>
   <div class="col-8">
-    <tabset class="member-tabs">
+    <tabset class="member-tabset">
       <tab heading="About {{ member.knownAs }}">
         <h4>Description</h4>
         <p>{{ member.introduction }}</p>
@@ -43,19 +41,18 @@
         <p>{{ member.lookingFor }}</p>
       </tab>
       <tab heading="Interests">
+        <h4>Interests</h4>
         <p>{{ member.interests }}</p>
       </tab>
-      <tab heading="Photos">
-        <p>
-          <ngx-gallery
-            [options]="galleryOptions"
-            [images]="galleryImages"
-            class="ngx-gallery"
-          ></ngx-gallery>
-        </p>
+      <tab heading="Photos" #photoTab="tab">
+        <gallery
+          *ngIf="photoTab.active"
+          [items]="images"
+          class="gallery"
+        ></gallery>
       </tab>
       <tab heading="Messages">
-        <p>Messages...</p>
+        <p>Messages will go here</p>
       </tab>
     </tabset>
   </div>
