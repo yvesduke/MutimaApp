@@ -3,65 +3,46 @@ using API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
+namespace API.Controllers;
+
+public class BuggyController : BaseApiController
 {
-    public class BuggyController : BaseApiController
+    private readonly DataContext _context;
+    public BuggyController(DataContext context)
     {
-        private readonly DataContext _context;
+        _context = context;
+    }
 
-        public BuggyController(DataContext context)
-        {
-            _context = context;
-        }
+    [Authorize]
+    [HttpGet("auth")]
+    public ActionResult<string> GetSecret()
+    {
+        return "secret text";
+    }
 
-        [Authorize]
-        [HttpGet("auth")]
-        public ActionResult<string> GetSecret()
-        {
-            return "secret text";
-        }
+    [HttpGet("not-found")]
+    public ActionResult<AppUser> GetNotFound()
+    {
+        var thing = _context.Users.Find(-1);
 
-        [HttpGet("not-found")]
-        public ActionResult<AppUser> GetNotFound()
-        {
-            var thing = _context.Users.Find(-1);
+        if (thing == null) return NotFound();
 
-            if (thing == null) return NotFound();
+        return thing;
+    }
 
-            return thing;
-        }
+    [HttpGet("server-error")]
+    public ActionResult<string> GetServerError()
+    {
+        var thing = _context.Users.Find(-1);
 
-        [HttpGet("server-error")]
-        public ActionResult<string> GeServerError()
-        {
+        var thingToReturn = thing.ToString();
 
-            // try
-            // {
-            //     var thing = _context.Users.Find(-1);
+        return thingToReturn;
+    }
 
-            //     var thingToReturn = thing.ToString();
-
-            //     return thingToReturn;
-
-            // }
-            // catch (Exception ex)
-            // {
-            //     return StatusCode(500, "Computer says no!");
-            // }
-
-            var thing = _context.Users.Find(-1);
-
-            var thingToReturn = thing.ToString();
-
-            return thingToReturn;
-        }
-
-        [HttpGet("bad-request")]
-        public ActionResult<string> GetBadRequest()
-        {
-            return BadRequest("This was not a good request");
-        }
-
-
+    [HttpGet("bad-request")]
+    public ActionResult<string> GetBadRequest()
+    {
+        return BadRequest("This was not a good request");
     }
 }

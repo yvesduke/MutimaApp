@@ -2,7 +2,6 @@ using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace API.Helpers
 {

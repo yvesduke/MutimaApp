@@ -29,7 +29,8 @@
     "ngx-timeago": "^3.0.0",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.1",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "zone.js": "~0.13.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.8",
@@ -41,6 +42,7 @@
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0"
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.1.3"
   }
 }
