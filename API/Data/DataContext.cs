@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
-// public class DataContext : DbContext
+// public class DataContext : IdentityDbContext<AppUser, AppRole, int,
+//          IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
 public class DataContext : IdentityDbContext<AppUser, AppRole, int,
          IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
          IdentityRoleClaim<int>, IdentityUserToken<int>>
@@ -17,6 +18,8 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
     // public DbSet<AppUser> Users { get; set; }
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Connection> Connections { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

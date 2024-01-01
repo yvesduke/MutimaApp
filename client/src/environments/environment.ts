@@ -5,7 +5,14 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001/api/',
+  hubUrl: 'https://localhost:5001/hubs/',
 };
+
+// export const environment = {
+//   production: true,
+//   apiUrl: 'api/',
+//   hubUrl: 'hubs/'
+// };
 
 /*
  * For easier debugging in development mode, you can import the following file
