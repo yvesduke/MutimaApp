@@ -18,18 +18,15 @@ export class MembersService {
   memberCache = new Map();
   user?: User | null;
   userParams: UserParams | undefined;
-  // paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
 
-  constructor(
-    private http: HttpClient,
-    private accountService: AccountService
-  ) {
+  constructor(private http: HttpClient, private accountService: AccountService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: (user) => {
-        if (user) this.userParams = new UserParams(user);
-        this.user = user;
-      },
-    });
+      next: user => {
+        if (user)
+          this.userParams = new UserParams(user);
+          this.user = user;
+      }
+    })
   }
 
   getUserParams() {
@@ -52,25 +49,21 @@ export class MembersService {
     const response = this.memberCache.get(Object.values(userParams).join('-'));
 
     if (response) return of(response);
-
-    // let params = this.getPaginationHeaders(
-    //   userParams.pageNumber,
-    //   userParams.pageSize
-    // );
     let params = getPaginationHeaders(
       userParams.pageNumber,
       userParams.pageSize
     );
+    // let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
+    // params = params.append('minAge', userParams.minAge);
+    // params = params.append('maxAge', userParams.maxAge);
+    // params = params.append('gender', userParams.gender);
+    // params = params.append('orderBy', userParams.orderBy);
     params = params.append('minAge', userParams.minAge);
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    // return this.getPaginatedResult<Member[]>(
-    //   this.baseUrl + 'users',
-    //   params
-    // ).pipe(
     return getPaginatedResult<Member[]>(
       this.baseUrl + 'users',
       params,
@@ -84,9 +77,13 @@ export class MembersService {
   }
 
   getMember(username: string) {
+    // const member = [...this.memberCache.values()]
+    //   .reduce((arr, elem) => arr.concat(elem.result), [])
+    //   .find((member: Member) => member.userName === username);
+
     const member = [...this.memberCache.values()]
-      .reduce((arr, elem) => arr.concat(elem.result), [])
-      .find((member: Member) => member.userName === username);
+       .reduce((arr, elem) => arr.concat(elem.result), [])
+       .find((member: Member) => member.userName === username);
 
     if (member) return of(member);
 
@@ -102,31 +99,6 @@ export class MembersService {
     );
   }
 
-  // private getPaginatedResult<T>(url: string, params: HttpParams) {
-  //   const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
-  //   return this.http.get<T>(url, { observe: 'response', params }).pipe(
-  //     map((response) => {
-  //       if (response.body) {
-  //         paginatedResult.result = response.body;
-  //       }
-  //       const pagination = response.headers.get('Pagination');
-  //       if (pagination) {
-  //         paginatedResult.pagination = JSON.parse(pagination);
-  //       }
-  //       return paginatedResult;
-  //     })
-  //   );
-  // }
-
-  // private getPaginationHeaders(pageNumber: number, pageSize: number) {
-  //   let params = new HttpParams();
-
-  //   params = params.append('pageNumber', pageNumber);
-  //   params = params.append('pageSize', pageSize);
-
-  //   return params;
-  // }
-
   setMainPhoto(photoId: number) {
     return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
   }
@@ -140,12 +112,10 @@ export class MembersService {
   }
 
   getLikes(predicate: string, pageNumber: number, pageSize: number) {
-    // let params = this.getPaginationHeaders(pageNumber, pageSize);
     let params = getPaginationHeaders(pageNumber, pageSize);
 
     params = params.append('predicate', predicate);
 
-    // return this.getPaginatedResult<Member[]>(this.baseUrl + 'likes', params);
     return getPaginatedResult<Member[]>(
       this.baseUrl + 'likes',
       params,
