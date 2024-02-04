@@ -1,9 +1,36 @@
-.dropdown-toggle, .dropdown-item {
-    cursor: pointer;
+.dropdown-toggle,
+.dropdown-item {
+  cursor: pointer;
 }
 
 img {
-    max-height: 50px;
-    border: 2px solid white;
-    display: inline;
+  max-height: 50px;
+  border: 2px solid white;
+  display: inline;
+}
+
+.logoImage {
+  max-height: 180px;
+}
+
+@media screen and (max-width: 640px) {
+  .logoImage {
+    width: 30%;
+    margin-bottom: -18px;
+  }
+
+  .usrnmPas {
+    width: 42%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .logoImage {
+    width: 30%;
+    margin-bottom: -18px;
+  }
+
+  .usrnmPas {
+    width: 42%;
+  }
 }

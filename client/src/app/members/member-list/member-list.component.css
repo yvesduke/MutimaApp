@@ -1,0 +1,44 @@
+.imgads {
+  max-width: 200%;
+  height: auto;
+}
+
+.mbrlist {
+  margin: auto;
+}
+
+.horizontal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.vertical-image {
+  height: 100%;
+  width: auto;
+  border-radius: 8px;
+}
+
+@media (max-width: 767px) {
+  .horizontal-image {
+    margin-bottom: 10px;
+
+    /* margin: 25px;
+    width: 85%;
+    height: 85%; */
+
+    height: 175px;
+    min-width: 175px !important;
+    margin-bottom: 2px;
+  }
+
+  .vertical-image {
+    /* margin: 25px;
+    width: 85%;
+    height: 85%; */
+
+    height: 90px;
+    min-width: 490px !important;
+    margin-bottom: 2px;
+  }
+}

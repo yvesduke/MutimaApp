@@ -11,6 +11,7 @@ import { UserParams } from 'src/app/_models/userParams';
   styleUrls: ['./member-list.component.css'],
 })
 export class MemberListComponent implements OnInit {
+  isSmallScreen = false;
   members: Member[] = [];
   pagination: Pagination | undefined;
   pageNumber = 1;
@@ -26,7 +27,13 @@ export class MemberListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
     this.loadMembers();
+  }
+
+  checkScreenSize() {
+    this.isSmallScreen = window.innerWidth <= 767;
   }
 
   loadMembers() {

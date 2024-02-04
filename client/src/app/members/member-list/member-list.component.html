@@ -1,5 +1,5 @@
 <div class="text-center mt-3">
-  <h2>Abo mwahuje - {{ pagination?.totalItems }} Naba</h2>
+  <h2>Abanyamuryango - {{ pagination?.totalItems }} Bariyandikishije</h2>
 </div>
 
 <div class="container mt-3" *ngIf="userParams">
@@ -10,7 +10,7 @@
     autocomplete="off"
   >
     <div class="d-flex mx-2">
-      <label class="col-form-label">Age from: </label>
+      <label class="col-form-label">Kuva kumyak: </label>
       <input
         type="number"
         class="form-control ms-1"
@@ -20,7 +20,7 @@
       />
     </div>
     <div class="d-flex px-2">
-      <label class="col-form-label">Age to: </label>
+      <label class="col-form-label">Kugeza kumyaka: </label>
       <input
         type="number"
         class="form-control ms-1"
@@ -31,7 +31,7 @@
     </div>
 
     <div class="d-flex px-2">
-      <label class="col-form-label me-2">Show: </label>
+      <label class="col-form-label me-2">Show | Erekana: </label>
       <select
         name="gender"
         style="width: 130px"
@@ -44,9 +44,9 @@
       </select>
     </div>
 
-    <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
+    <button class="btn btn-primary ms-1" type="submit">Yungurura</button>
     <button (click)="resetFilters()" class="btn btn-info ms-1" type="submit">
-      Reset Filters
+      Subira ukobyaribimeze
     </button>
     <div class="col">
       <div class="btn-group float-end">
@@ -58,7 +58,7 @@
           btnRadio="lastActive"
           [(ngModel)]="userParams.orderBy"
         >
-          Last Active
+          Abaherutse hano
         </button>
         <button
           type="button"
@@ -68,19 +68,84 @@
           btnRadio="created"
           [(ngModel)]="userParams.orderBy"
         >
-          Newest members
+          Abashyashya
         </button>
+        <div class="col"></div>
       </div>
     </div>
   </form>
-</div>
 
-<div class="row">
-  <div *ngFor="let member of members" class="col-2">
-    <app-member-card [member]="member"></app-member-card>
+  <br />
+  <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+  <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+  <div class="row">
+    <!--==================== Left Ads Banner ======================-->
+    <div class="col-1">
+      <!-- <img
+        src="../../../assets/AdBanner015.jpg"
+        class="img-thumbnail imgads"
+        alt="..."
+      /> -->
+      <img
+        src="../../../assets/AdBanner015.jpg"
+        [class.horizontal-image]="!isSmallScreen"
+        [class.vertical-image]="isSmallScreen"
+        alt="..."
+      />
+    </div>
+    <!-- =============================================================== -->
+
+    <div class="col-md-9 col-sm-auto mbrlist">
+      <!--------- Members card --------->
+      <div class="row">
+        <!-- <div *ngFor="let member of members" class="col-2"> -->
+        <div *ngFor="let member of members" class="col-lg-4 col-md-2 col-sm-6">
+          <app-member-card [member]="member"></app-member-card>
+        </div>
+      </div>
+      <!-- =============================================== -->
+    </div>
+
+    <!--==================== Right Ads Banner ======================-->
+    <div class="col-1">
+      <!-- <img
+        src="../../../assets/AdBanner015.jpg"
+        class="img-thumbnail imgads"
+        alt="..."
+      /> -->
+      <img
+        src="../../../assets/AdBanner015.jpg"
+        [class.horizontal-image]="!isSmallScreen"
+        [class.vertical-image]="isSmallScreen"
+        alt="..."
+      />
+    </div>
+    <!-- =============================================================== -->
   </div>
+
+  <!-- ------- Members card --------->
+  <!-- <div class="row">
+    <div *ngFor="let member of members" class="col-2">
+      <app-member-card [member]="member"></app-member-card>
+    </div>
+  </div> -->
+  <!-- =============================================== -->
+
+  <!--==================== Right Ads Banner ======================-->
+  <!-- <div class="row">
+    <div class="col-1">
+      <img
+        src="../../../assets/AdBanner015.jpg"
+        class="img-thumbnail imgads"
+        alt="..."
+      />
+    </div>
+  </div> -->
+  <!-- =============================================================== -->
 </div>
 
+<!--==================== Paginatiomn ======================-->
 <div class="d-flex justify-content-center" *ngIf="pagination">
   <pagination
     [boundaryLinks]="true"
@@ -96,3 +161,5 @@
   >
   </pagination>
 </div>
+
+<!-- =============================================================== -->
