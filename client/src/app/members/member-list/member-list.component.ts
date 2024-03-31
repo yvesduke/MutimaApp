@@ -18,9 +18,11 @@ export class MemberListComponent implements OnInit {
   pageSize = 5;
   userParams: UserParams | undefined;
   genderList = [
-    { value: 'male', display: 'Males' },
-    { value: 'female', display: 'Females' },
+    { value: 'male', display: 'Gabo' },
+    { value: 'female', display: 'Gore' },
   ];
+  smallScreenAdBannerPath = '../../../assets/AdBannerHorizontal1.jpg';
+  largeScreenAdBannerPath = '../../../assets/AdBanner015.jpg';
 
   constructor(private memberService: MembersService) {
     this.userParams = this.memberService.getUserParams();

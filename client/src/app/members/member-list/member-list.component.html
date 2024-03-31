@@ -5,12 +5,400 @@
 <div class="container mt-3" *ngIf="userParams">
   <form
     #form="ngForm"
+    class="d-flex flex-wrap align-items-start mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="col-lg-4 mb-2 mb-lg-0">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="col-lg-4 mb-2 mb-lg-0">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="col-lg-4 mb-2 mb-lg-0 d-flex align-items-start">
+      <div class="w-100">
+        <label class="col-form-label me-2">Nyereka: </label>
+        <select
+          name="gender"
+          style="width: calc(100% - 120px)"
+          class="form-select ml-1"
+          [(ngModel)]="userParams.gender"
+        >
+          <option *ngFor="let gender of genderList" [value]="gender.value">
+            {{ gender.display }}
+          </option>
+        </select>
+      </div>
+      <div class="ms-1">
+        <button class="btn btn-primary me-1 mb-1" type="submit">
+          Yungurura
+        </button>
+        <button
+          (click)="resetFilters()"
+          class="btn btn-info mb-1"
+          type="button"
+        >
+          Subira ukobyaribimeze
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-lg-end">
+    <button
+      type="button"
+      class="btn btn-primary me-1"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="lastActive"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abaherutse hano
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="created"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abashyashya
+    </button>
+  </div>
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap align-items-start mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="col-lg-4 mb-2 mb-lg-0">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="col-lg-4 mb-2 mb-lg-0">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="col-lg-4 mb-2 mb-lg-0 d-flex align-items-start">
+      <div class="w-100">
+        <label class="col-form-label me-2">Show | Erekana: </label>
+        <select
+          name="gender"
+          style="width: calc(100% - 120px)"
+          class="form-select ml-1"
+          [(ngModel)]="userParams.gender"
+        >
+          <option *ngFor="let gender of genderList" [value]="gender.value">
+            {{ gender.display }}
+          </option>
+        </select>
+      </div>
+      <div class="ms-1">
+        <button class="btn btn-primary me-1" type="submit">Yungurura</button>
+        <button (click)="resetFilters()" class="btn btn-info" type="button">
+          Subira ukobyaribimeze
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-lg-end">
+    <button
+      type="button"
+      class="btn btn-primary me-1"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="lastActive"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abaherutse hano
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="created"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abashyashya
+    </button>
+  </div> -->
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap align-items-center mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="col-lg-4 mb-2 mb-lg-0 align-self-start">
+      <label class="col-form-label me-2">Show | Erekana: </label>
+      <select
+        name="gender"
+        style="width: 100%"
+        class="form-select ml-1"
+        [(ngModel)]="userParams.gender"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <button class="btn btn-primary ms-1 me-1 mb-2 mb-lg-0" type="submit">
+        Yungurura
+      </button>
+    </div>
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <button
+        (click)="resetFilters()"
+        class="btn btn-info ms-1 mb-2 mb-lg-0"
+        type="button"
+      >
+        Subira ukobyaribimeze
+      </button>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-lg-end">
+    <button
+      type="button"
+      class="btn btn-primary me-1"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="lastActive"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abaherutse hano
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="created"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abashyashya
+    </button>
+  </div> -->
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap align-items-center mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 100%"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="col-lg-3 mb-2 mb-lg-0">
+      <label class="col-form-label me-2">Show | Erekana: </label>
+      <select
+        name="gender"
+        style="width: 100%"
+        class="form-select ml-1"
+        [(ngModel)]="userParams.gender"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <button class="btn btn-primary ms-1 me-1 mb-2 mb-lg-0" type="submit">
+        Yungurura
+      </button>
+    </div>
+    <div class="col-lg-3 mb-2 mb-lg-0">
+      <button
+        (click)="resetFilters()"
+        class="btn btn-info ms-1 mb-2 mb-lg-0"
+        type="button"
+      >
+        Subira ukobyaribimeze
+      </button>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-lg-end">
+    <button
+      type="button"
+      class="btn btn-primary me-1"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="lastActive"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abaherutse hano
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="created"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abashyashya
+    </button>
+  </div> -->
+
+  <!-- <form
+  #form="ngForm"
+  class="d-flex flex-wrap align-items-center mb-3"
+  (ngSubmit)="loadMembers()"
+  autocomplete="off"
+>
+  <div class="col-lg-2 mb-2 mb-lg-0">
+    <label class="col-form-label">Kuva kumyaka: </label>
+    <input
+      type="number"
+      class="form-control ms-1"
+      style="width: 100%"
+      name="minAge"
+      [(ngModel)]="userParams.minAge"
+    />
+  </div>
+  <div class="col-lg-2 mb-2 mb-lg-0">
+    <label class="col-form-label">Kugeza kumyaka: </label>
+    <input
+      type="number"
+      class="form-control ms-1"
+      style="width: 100%"
+      name="maxAge"
+      [(ngModel)]="userParams.maxAge"
+    />
+  </div>
+
+  <div class="col-lg-2 mb-2 mb-lg-0">
+    <label class="col-form-label me-2">Show | Erekana: </label>
+    <select
+      name="gender"
+      style="width: 100%"
+      class="form-select ml-1"
+      [(ngModel)]="userParams.gender"
+    >
+      <option *ngFor="let gender of genderList" [value]="gender.value">
+        {{ gender.display }}
+      </option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary ms-1 me-1 mb-2 mb-lg-0" type="submit">
+    Yungurura
+  </button>
+  <button
+    (click)="resetFilters()"
+    class="btn btn-info ms-1 mb-2 mb-lg-0"
+    type="button"
+  >
+    Subira ukobyaribimeze
+  </button>
+</form>
+
+<div class="d-flex justify-content-lg-end">
+  <button
+    type="button"
+    class="btn btn-primary me-1"
+    name="orderBy"
+    (click)="loadMembers()"
+    btnRadio="lastActive"
+    [(ngModel)]="userParams.orderBy"
+  >
+    Abaherutse hano
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    name="orderBy"
+    (click)="loadMembers()"
+    btnRadio="created"
+    [(ngModel)]="userParams.orderBy"
+  >
+    Abashyashya
+  </button>
+</div> -->
+
+  <!-- <form
+    #form="ngForm"
     class="d-flex mb-3"
     (ngSubmit)="loadMembers()"
     autocomplete="off"
   >
     <div class="d-flex mx-2">
-      <label class="col-form-label">Kuva kumyak: </label>
+      <label class="col-form-label">Kuva kumyaka: </label>
       <input
         type="number"
         class="form-control ms-1"
@@ -73,7 +461,314 @@
         <div class="col"></div>
       </div>
     </div>
+  </form> -->
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="d-flex mx-2 mb-2 mb-md-0 col-md-4">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="d-flex px-2 mb-2 mb-md-0 col-md-4">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="d-flex px-2 mb-2 mb-md-0 col-md-4">
+      <label class="col-form-label me-2">Show | Erekana: </label>
+      <select
+        name="gender"
+        style="width: 130px"
+        class="form-select ml-1"
+        [(ngModel)]="userParams.gender"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary ms-1 me-1 mb-2 mb-md-0" type="submit">
+      Yungurura
+    </button>
+    <button
+      (click)="resetFilters()"
+      class="btn btn-info ms-1 mb-2 mb-md-0"
+      type="button"
+    >
+      Subira ukobyaribimeze
+    </button>
+    <div class="col-md-12"></div>
+    <div class="btn-group float-md-end col-md-12">
+      <button
+        type="button"
+        class="btn btn-primary"
+        name="orderBy"
+        (click)="loadMembers()"
+        btnRadio="lastActive"
+        [(ngModel)]="userParams.orderBy"
+      >
+        Abaherutse hano
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        name="orderBy"
+        (click)="loadMembers()"
+        btnRadio="created"
+        [(ngModel)]="userParams.orderBy"
+      >
+        Abashyashya
+      </button>
+    </div>
+  </form> -->
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="d-flex mx-2 mb-2 mb-md-0 col-md">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="d-flex px-2 mb-2 mb-md-0 col-md">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="d-flex px-2 mb-2 mb-md-0 col-md">
+      <label class="col-form-label me-2">Igitsina: </label>
+      <select
+        name="gender"
+        style="width: 130px"
+        class="form-select ml-1"
+        [(ngModel)]="userParams.gender"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary ms-1 me-1 mb-2 mb-md-0" type="submit">
+      Yungurura
+    </button>
+
+    <button
+      (click)="resetFilters()"
+      class="btn btn-info ms-1 mb-2 mb-md-0"
+      type="button"
+    >
+      Subira ukobyaribimeze
+    </button>
+
+    <div class="col-md-12">
+      <div class="btn-group float-md-end col-md-12">
+        <button
+          type="button"
+          class="btn btn-primary"
+          name="orderBy"
+          (click)="loadMembers()"
+          btnRadio="lastActive"
+          [(ngModel)]="userParams.orderBy"
+        >
+          Abaherutse hano
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          name="orderBy"
+          (click)="loadMembers()"
+          btnRadio="created"
+          [(ngModel)]="userParams.orderBy"
+        >
+          Abashyashya
+        </button>
+      </div>
+    </div>
+  </form> -->
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="d-flex mx-2 mb-2 mb-md-0 col-lg-3">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="d-flex px-2 mb-2 mb-md-0 col-lg-3">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="d-flex px-2 mb-2 mb-md-0 col-lg-3">
+      <label class="col-form-label me-2">Show | Erekana: </label>
+      <select
+        name="gender"
+        style="width: 130px"
+        class="form-select ml-1"
+        [(ngModel)]="userParams.gender"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary ms-1 me-1 mb-2 mb-md-0" type="submit">
+      Yungurura
+    </button>
+    <button
+      (click)="resetFilters()"
+      class="btn btn-info ms-1 mb-2 mb-md-0"
+      type="button"
+    >
+      Subira ukobyaribimeze
+    </button>
+    <div class="col-lg-12"></div>
+    <div class="btn-group float-lg-end col-lg-12">
+      <button
+        type="button"
+        class="btn btn-primary"
+        name="orderBy"
+        (click)="loadMembers()"
+        btnRadio="lastActive"
+        [(ngModel)]="userParams.orderBy"
+      >
+        Abaherutse hano
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        name="orderBy"
+        (click)="loadMembers()"
+        btnRadio="created"
+        [(ngModel)]="userParams.orderBy"
+      >
+        Abashyashya
+      </button>
+    </div>
+  </form> -->
+
+  <!-- <form
+    #form="ngForm"
+    class="d-flex flex-wrap align-items-center mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label">Kuva kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label">Kugeza kumyaka: </label>
+      <input
+        type="number"
+        class="form-control ms-1"
+        style="width: 70px"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="col-lg-2 mb-2 mb-lg-0">
+      <label class="col-form-label me-2">Show | Erekana: </label>
+      <select
+        name="gender"
+        style="width: 130px"
+        class="form-select ml-1"
+        [(ngModel)]="userParams.gender"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary ms-1 me-1 mb-2 mb-lg-0" type="submit">
+      Yungurura
+    </button>
+    <button
+      (click)="resetFilters()"
+      class="btn btn-info ms-1 mb-2 mb-lg-0"
+      type="button"
+    >
+      Subira ukobyaribimeze
+    </button>
   </form>
+
+  <div class="d-flex justify-content-lg-end">
+    <button
+      type="button"
+      class="btn btn-primary me-1"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="lastActive"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abaherutse hano
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      name="orderBy"
+      (click)="loadMembers()"
+      btnRadio="created"
+      [(ngModel)]="userParams.orderBy"
+    >
+      Abashyashya
+    </button>
+  </div> -->
 
   <br />
   <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
@@ -82,15 +777,11 @@
   <div class="row">
     <!--==================== Left Ads Banner ======================-->
     <div class="col-1">
-      <!-- <img
-        src="../../../assets/AdBanner015.jpg"
-        class="img-thumbnail imgads"
-        alt="..."
-      /> -->
       <img
-        src="../../../assets/AdBanner015.jpg"
-        [class.horizontal-image]="!isSmallScreen"
-        [class.vertical-image]="isSmallScreen"
+        [src]="
+          isSmallScreen ? smallScreenAdBannerPath : largeScreenAdBannerPath
+        "
+        class="img-thumbnail imgads smallScreenAdBanner"
         alt="..."
       />
     </div>
@@ -99,7 +790,6 @@
     <div class="col-md-9 col-sm-auto mbrlist">
       <!--------- Members card --------->
       <div class="row">
-        <!-- <div *ngFor="let member of members" class="col-2"> -->
         <div *ngFor="let member of members" class="col-lg-4 col-md-2 col-sm-6">
           <app-member-card [member]="member"></app-member-card>
         </div>
@@ -109,15 +799,11 @@
 
     <!--==================== Right Ads Banner ======================-->
     <div class="col-1">
-      <!-- <img
-        src="../../../assets/AdBanner015.jpg"
-        class="img-thumbnail imgads"
-        alt="..."
-      /> -->
       <img
-        src="../../../assets/AdBanner015.jpg"
-        [class.horizontal-image]="!isSmallScreen"
-        [class.vertical-image]="isSmallScreen"
+        [src]="
+          isSmallScreen ? smallScreenAdBannerPath : largeScreenAdBannerPath
+        "
+        class="img-thumbnail imgads smallScreenAdBanner"
         alt="..."
       />
     </div>
