@@ -18,7 +18,7 @@
         (click)="setMainPhoto(photo)"
         [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
       >
-        Main
+        Ifoto yibanze
       </button>
       <button
         class="btn btn-sm btn-danger"
@@ -33,7 +33,7 @@
 
 <div class="row">
   <div class="col-3">
-    <h3>Add Photos</h3>
+    <h3>Syiraho amafoto</h3>
 
     <div
       ng2FileDrop
@@ -43,14 +43,41 @@
       class="card bg-faded p-3 text-center mb-3 my-drop-zone"
     >
       <i class="fa fa-upload fa-3x"></i>
-      Drop photos here >
+      Syira amafoto hano
     </div>
 
-    Multiple
-    <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
+    Shyiraho amafoto
+    <!-- <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br /> -->
+    <div class="custom-file-input">
+      <button>Hitamo amafoto</button>
+      <input
+        type="file"
+        ng2FileSelect
+        [uploader]="uploader"
+        multiple
+        #fileInput
+        (change)="onFileSelected($event)"
+      /><br />
+    </div>
 
-    Single
-    <input type="file" ng2FileSelect [uploader]="uploader" />
+    Shyiraho ifoto imwe
+    <!-- <input
+      type="file"
+      ng2FileSelect
+      [uploader]="uploader"
+      #fileInput
+      style="display: none"
+    /> -->
+    <div class="custom-file-input">
+      <button>Hitamo ifoto</button>
+      <input
+        type="file"
+        ng2FileSelect
+        [uploader]="uploader"
+        #fileInput
+        (change)="onFileSelected($event)"
+      />
+    </div>
   </div>
 
   <div
@@ -58,14 +85,14 @@
     style="margin-bottom: 40px"
     *ngIf="uploader?.queue?.length"
   >
-    <h3>Upload queue</h3>
-    <p>Queue length: {{ uploader?.queue?.length }}</p>
+    <h3>kumurongo</h3>
+    <p>hasigaye: {{ uploader?.queue?.length }}</p>
 
     <table class="table">
       <thead>
         <tr>
-          <th widt="50%">Name</th>
-          <th>Size</th>
+          <th widt="50%">Izina</th>
+          <th>Ingano</th>
         </tr>
       </thead>
       <tbody>
@@ -82,7 +109,7 @@
 
     <div>
       <div>
-        Queue progress:
+        Ahobigeze:
         <div class="progress">
           <div
             class="progress-bar"
@@ -97,7 +124,7 @@
         (click)="uploader?.uploadAll()"
         [disabled]="!uploader?.getNotUploadedItems()?.length"
       >
-        <span class="fa fa-upload"></span> Upload all
+        <span class="fa fa-upload"></span> Shyiraho zose
       </button>
       <button
         type="button"
@@ -105,7 +132,7 @@
         (click)="uploader?.cancelAll()"
         [disabled]="!uploader?.isUploading"
       >
-        <span class="fa fa-ban"></span> Cancel all
+        <span class="fa fa-ban"></span> Isubireho
       </button>
       <button
         type="button"
@@ -113,7 +140,7 @@
         (click)="uploader?.clearQueue()"
         [disabled]="!uploader?.queue?.length"
       >
-        <span class="fa fa-trash"></span> Remove all
+        <span class="fa fa-trash"></span> Kuraho zose
       </button>
     </div>
   </div>

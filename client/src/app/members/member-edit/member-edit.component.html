@@ -1,12 +1,13 @@
 <div class="row" *ngIf="member">
   <div class="col-4">
-    <h1>Your profile</h1>
+    <h1>Umwirondoro</h1>
   </div>
-  <div class="col-8">
+  <!-- TODO:-- Change the color of this worning box below -->
+  <div class="col-8" col>
     <div class="alert alert-info pb-0" *ngIf="editForm.dirty">
       <p>
-        <strong>Information: </strong>You have made changes. Any unsaved changes
-        will be lost
+        <strong>Kumenyesha: </strong>Wagize ibyo uhindura. Impinduka zose
+        utarashimangira zirabura
       </p>
     </div>
   </div>
@@ -19,21 +20,22 @@
       />
       <div class="card-body">
         <div>
-          <strong>Location:</strong>
+          <strong>Ahomperereye:</strong>
           <p>{{ member.city }}, {{ member.country }}</p>
         </div>
         <div>
-          <strong>Age:</strong>
+          <strong>Imyaka:</strong>
           <p>{{ member.age }}</p>
         </div>
         <div>
-          <strong>Last active:</strong>
+          <strong>Aheruka hano:</strong>
           <!-- <p>{{ member.lastActive + "Z" | timeago }}</p> -->
           <p>{{ member.lastActive | timeago }}</p>
         </div>
         <div>
-          <strong>Memeber since:</strong>
-          <p>{{ member.created | date : "dd MMM yyyy" }}</p>
+          <strong>Umunyamuryango kuva:</strong>
+          <!-- <p>{{ member.created | date : "dd MMM yyyy" }}</p> -->
+          <p>{{ member.created | date : "dd. MM. yyyy" }}</p>
         </div>
       </div>
       <div class="card-footer">
@@ -43,16 +45,16 @@
           form="editForm"
           class="btn btn-success col-12"
         >
-          Save Changes
+          Shimangira impinduka
         </button>
       </div>
     </div>
   </div>
   <div class="col-8">
     <tabset class="member-tabs">
-      <tab heading="About {{ member.knownAs }}">
+      <tab heading="Ibyerecye {{ member.knownAs }}">
         <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
-          <h4 class="mt-2">Description</h4>
+          <h4 class="mt-2">Uwuriwe</h4>
           <textarea
             class="form-control"
             [(ngModel)]="member.introduction"
@@ -61,7 +63,7 @@
                    rows="6"
                 </textarea
           >
-          <h4 class="mt-2">Looking for</h4>
+          <h4 class="mt-2">Ndihano kubera</h4>
           <textarea
             class="form-control"
             [(ngModel)]="member.lookingFor"
@@ -70,7 +72,7 @@
                    rows="6"
                 </textarea
           >
-          <h4 class="mt-2">Interests</h4>
+          <h4 class="mt-2">Ndifuza</h4>
           <textarea
             class="form-control"
             [(ngModel)]="member.interests"
@@ -79,16 +81,16 @@
                    rows="6"
                 </textarea
           >
-          <h4 class="mt-2">Location Details:</h4>
+          <h4 class="mt-2">Aho mperereye:</h4>
           <div class="d-flex flex-row align-items-center">
-            <label for="city">City: </label>
+            <label for="city">Umugi: </label>
             <input
               type="text"
               [(ngModel)]="member.city"
               name="city"
               class="form-control mx-2"
             />
-            <label for="country">Country: </label>
+            <label for="country">Igihugu: </label>
             <input
               type="text"
               [(ngModel)]="member.country"
@@ -98,7 +100,7 @@
           </div>
         </form>
       </tab>
-      <tab heading="Edit Photos">
+      <tab heading="Hindura cg wongere amafoto">
         <app-photo-editor [member]="member"></app-photo-editor>
       </tab>
     </tabset>

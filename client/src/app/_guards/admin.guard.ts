@@ -14,7 +14,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
       if (user.roles.includes('Admin') || user.roles.includes('Moderator')) {
         return true;
       } else {
-        toastr.error('You cannot enter this area');
+        toastr.error('Ntiwemerewe kwinjira hano');
         return false;
       }
     })
