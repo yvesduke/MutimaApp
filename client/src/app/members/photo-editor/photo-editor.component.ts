@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-photo-editor',
   templateUrl: './photo-editor.component.html',
-  styleUrls: ['./photo-editor.component.css']
+  styleUrls: ['./photo-editor.component.css'],
 })
 export class PhotoEditorComponent implements OnInit {
   @Input() member: Member | undefined;
@@ -20,13 +20,16 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   user: User | undefined;
 
-  constructor(private accountService: AccountService, private memberService: MembersService) {
+  constructor(
+    private accountService: AccountService,
+    private memberService: MembersService
+  ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        if (user) this.user = user
-      }
-    })
-   }
+      next: (user) => {
+        if (user) this.user = user;
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.initializeUploader();
@@ -43,25 +46,35 @@ export class PhotoEditorComponent implements OnInit {
           this.user.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user);
           this.member.photoUrl = photo.url;
-          this.member.photos.forEach(p => {
+          this.member.photos.forEach((p) => {
             if (p.isMain) p.isMain = false;
             if (p.id === photo.id) p.isMain = true;
-          })
+          });
         }
-      }
-    })
+      },
+    });
   }
 
   deletePhoto(photoId: number) {
     this.memberService.deletePhoto(photoId).subscribe({
-      next: _ => {
+      next: (_) => {
         if (this.member) {
-          this.member.photos = this.member.photos.filter(x => x.id !== photoId);
+          this.member.photos = this.member.photos.filter(
+            (x) => x.id !== photoId
+          );
         }
-      }
-    })
+      },
+    });
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      console.log('File selected:', input.files[0].name);
+      //TODO:-- Check if we need to do more here
+      // Handle file selection logic here
+    }
+  }
 
   initializeUploader() {
     this.uploader = new FileUploader({
@@ -71,12 +84,12 @@ export class PhotoEditorComponent implements OnInit {
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
+      maxFileSize: 10 * 1024 * 1024,
     });
-    
+
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
-    }
+    };
 
     this.uploader.onSuccessItem = (item, response, status, Headers) => {
       if (response) {
@@ -88,8 +101,6 @@ export class PhotoEditorComponent implements OnInit {
           this.accountService.setCurrentUser(this.user);
         }
       }
-    }
-
+    };
   }
-
 }
