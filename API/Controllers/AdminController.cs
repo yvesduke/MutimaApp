@@ -41,7 +41,7 @@ namespace API.Controllers
         [HttpPost("edit-roles/{username}")]
         public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
         {
-            if (string.IsNullOrEmpty(roles)) return BadRequest("You must select at least one role");
+            if (string.IsNullOrEmpty(roles)) return BadRequest("Ugomba guhitamo byibuze uruhare rwawe");
 
             var selectedRoles = roles.Split(",").ToArray();
 
@@ -53,11 +53,11 @@ namespace API.Controllers
 
             var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
 
-            if (!result.Succeeded) return BadRequest("Failed to add to roles");
+            if (!result.Succeeded) return BadRequest("Ntushoboye gushyiraho uruhare rwawe");
 
             result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
 
-            if (!result.Succeeded) return BadRequest("Failed to remove from roles");
+            if (!result.Succeeded) return BadRequest("Ntushoboye gukuraho uruhare rwawe");
 
             return Ok(await _userManager.GetRolesAsync(user));
         }

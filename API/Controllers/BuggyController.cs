@@ -43,6 +43,6 @@ public class BuggyController : BaseApiController
     [HttpGet("bad-request")]
     public ActionResult<string> GetBadRequest()
     {
-        return BadRequest("This was not a good request");
+        return BadRequest("Ubu busabe ntibwemewe");
     }
 }

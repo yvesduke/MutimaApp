@@ -1,0 +1,59 @@
+.fit {
+  width: 300px;
+  height: 150px;
+  /* margin-left: 150px;
+  margin-bottom: 90px; */
+}
+
+/*.container .btn {
+    position: absolute;
+    top: 560px;
+    left: 580px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+    .container .btn:hover {
+      background-color: purple;
+    }*/
+
+/*.btn-warning {
+    position: absolute;
+    top: 612px;
+    left: 580px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+    .btn-warning:hover {
+      background-color: purple;
+    }*/
+
+.imgads {
+  max-width: 200%;
+  height: auto;
+}
+
+.regform {
+  max-width: inherit;
+  margin: auto;
+}
+
+.okBtn {
+  background-color: blueviolet;
+  margin-top: 300px;
+}

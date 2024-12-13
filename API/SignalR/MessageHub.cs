@@ -61,7 +61,7 @@ public class MessageHub : Hub
         var username = Context.User.GetUsername();
 
         if (username == createMessageDto.RecipientUsername.ToLower())
-            throw new HubException("You cannot send messages to yourself");
+            throw new HubException("Ntabwo wemerewe kwiyoherereza ubutumwa");
 
         // var sender = await _userRepository.GetUserByUsernameAsync(username);
         // var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
@@ -69,7 +69,7 @@ public class MessageHub : Hub
         var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
         var recipient = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
-        if (recipient == null) throw new HubException("Not found user");
+        if (recipient == null) throw new HubException("Ntashoboye kuboneka");
 
         var message = new Message
         {
@@ -134,7 +134,7 @@ public class MessageHub : Hub
         // if (await _messageRepository.SaveAllAsync()) return group;
         if (await _uow.Complete()) return group;
 
-        throw new HubException("Failed to add to group");
+        throw new HubException("Ntidushoboye kugushyira kuri group");
     }
 
     private async Task<Group> RemoveFromMessageGroup()
@@ -150,6 +150,6 @@ public class MessageHub : Hub
         // if (await _messageRepository.SaveAllAsync()) return group;
         if (await _uow.Complete()) return group;
 
-        throw new HubException("Failed to remove from group");
+        throw new HubException("Ntidushoboye kugukura kuri group");
     }
 }

@@ -35,12 +35,12 @@ public class LikesController : BaseApiController
 
         if (likedUser == null) return NotFound();
 
-        if (sourceUser.UserName == username) return BadRequest("You cannot like yourself");
+        if (sourceUser.UserName == username) return BadRequest("Ntushobora kwikunda");
 
         // var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
         var userLike = await _uow.LikesRepository.GetUserLike(sourceUserId, likedUser.Id);
 
-        if (userLike != null) return BadRequest("You already like this user");
+        if (userLike != null) return BadRequest("Usanzwe ukunda uyu muntu");
 
         userLike = new UserLike
         {
@@ -53,7 +53,7 @@ public class LikesController : BaseApiController
         // if (await _userRepository.SaveAllAsync()) return Ok();
         if (await _uow.Complete()) return Ok();
 
-        return BadRequest("Failed to like user");
+        return BadRequest("Ntushoboye gukunda uyumuntu");
     }
 
     [HttpGet]
