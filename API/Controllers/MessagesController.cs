@@ -32,7 +32,7 @@ public class MessagesController : BaseApiController
         var username = User.GetUsername();
 
         if (username == createMessageDto.RecipientUsername.ToLower())
-            return BadRequest("You cannot send messages to yourself");
+            return BadRequest("Ntushobora kwiyoherereza ubutumwa");
 
         // var sender = await _userRepository.GetUserByUsernameAsync(username);
         // var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
@@ -57,7 +57,7 @@ public class MessagesController : BaseApiController
         // if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
         if (await _uow.Complete()) return Ok(_mapper.Map<MessageDto>(message));
 
-        return BadRequest("Failed to send message");
+        return BadRequest("Ntushoboye kohereza ubutumwa");
     }
 
     [HttpGet]
@@ -108,6 +108,6 @@ public class MessagesController : BaseApiController
         // if (await _messageRepository.SaveAllAsync()) return Ok();
         if (await _uow.Complete()) return Ok();
 
-        return BadRequest("Problem deleting the message");
+        return BadRequest("Ntushoboye gusiba ubutumwa");
     }
 }

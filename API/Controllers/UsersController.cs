@@ -84,7 +84,7 @@ public class UsersController : BaseApiController
             return CreatedAtAction(nameof(GetUser), new { username = user.UserName },
                 _mapper.Map<PhotoDto>(photo));
 
-        return BadRequest("Problem adding photo");
+        return BadRequest("Ntushoboye gushyiraho ifoto");
     }
 
     [HttpPut("set-main-photo/{photoId}")]
@@ -96,7 +96,7 @@ public class UsersController : BaseApiController
 
         if (photo == null) return NotFound();
 
-        if (photo.IsMain) return BadRequest("This is already your main photo");
+        if (photo.IsMain) return BadRequest("Iyi niyo foto yawe yibanze");
 
         var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
         if (currentMain != null) currentMain.IsMain = false;
@@ -104,7 +104,7 @@ public class UsersController : BaseApiController
 
         if (await _uow.Complete()) return NoContent();
 
-        return BadRequest("Problem setting main photo");
+        return BadRequest("Ntushoboye gushyiraho ifoto yawe yibanze");
     }
 
     [HttpDelete("delete-photo/{photoId}")]
@@ -116,7 +116,7 @@ public class UsersController : BaseApiController
 
         if (photo == null) return NotFound();
 
-        if (photo.IsMain) return BadRequest("You cannot delete your main photo");
+        if (photo.IsMain) return BadRequest("Ntushobora gusiba ifoto yawe yibanze");
 
         if (photo.PublicId != null)
         {
@@ -128,6 +128,6 @@ public class UsersController : BaseApiController
 
         if (await _uow.Complete()) return Ok();
 
-        return BadRequest("Problem deleting photo");
+        return BadRequest("Ntushoboye gusiba ifoto");
     }
 }
