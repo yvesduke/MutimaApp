@@ -7,6 +7,8 @@ using API.Errors;
 using API.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using API.Services;
+using API.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
+builder.Services.AddSingleton<BrevoEmailService>();
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-// Configure the HTTP request pipeline.
 app.UseCors(builder => builder
 .AllowAnyHeader()
 .AllowAnyMethod()

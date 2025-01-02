@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <h2>Resend Confirmation Email</h2>
+  <form [formGroup]="resendForm" (ngSubmit)="resend()">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        placeholder="Injiza email yawe"
+      />
+      <div
+        *ngIf="
+          resendForm.get('email')?.invalid && resendForm.get('email')?.touched
+        "
+        class="text-danger"
+      >
+        <small>Email ni ngombwa kandi igomba kuba nyayo.</small>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="resendForm.invalid || loading"
+    >
+      {{ loading ? "Resending..." : "Resend Confirmation Email" }}
+    </button>
+  </form>
+
+  <div *ngIf="validationErrors && validationErrors.length > 0" class="mt-3">
+    <ul class="text-danger">
+      <li *ngFor="let error of validationErrors">
+        {{ error }}
+      </li>
+    </ul>
+  </div>
+</div>
