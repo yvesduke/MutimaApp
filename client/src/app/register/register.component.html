@@ -5,76 +5,165 @@
 >
   <h2 class="text-center text-primary">Iyandikishe</h2>
   <hr />
+
+  <!-- Gender Selection -->
   <div class="mb-3">
-    <label style="margin-right: 10px">Ndi: </label>
-    <label class="form-check-label">
+    <label class="form-label">Ndi:</label>
+    <div class="form-check form-check-inline">
       <input
         type="radio"
         class="form-check-input"
         value="male"
         formControlName="gender"
+        id="genderMale"
       />
-      Igitsina Gabo
-    </label>
-    <label class="form-check-label">
+      <label class="form-check-label" for="genderMale">Igitsina Gabo</label>
+    </div>
+    <div class="form-check form-check-inline">
       <input
         type="radio"
-        class="form-check-input ms-3"
+        class="form-check-input"
         value="female"
         formControlName="gender"
+        id="genderFemale"
       />
-      Igitsina Gore
-    </label>
+      <label class="form-check-label" for="genderFemale">Igitsina Gore</label>
+    </div>
+    <div
+      *ngIf="
+        registerForm.get('gender')?.invalid &&
+        registerForm.get('gender')?.touched
+      "
+      class="text-danger"
+    >
+      <small>Igitsina ni ngombwa.</small>
+    </div>
   </div>
 
   <app-text-input
     [formControl]="$any(registerForm.controls['username'])"
     [label]="'Izina'"
   ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.get('username')?.invalid &&
+      registerForm.get('username')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Izina ni ngombwa.</small>
+  </div>
   <app-text-input
     [formControl]="$any(registerForm.controls['knownAs'])"
     [label]="'Izina wifuza gukoresha'"
   ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.get('knownAs')?.invalid &&
+      registerForm.get('knownAs')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Izina wifuza gukoresha ni ngombwa.</small>
+  </div>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['email'])"
+    [label]="'Email yawe'"
+    [type]="'email'"
+  ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Email ni ngombwa kandi igomba kuba nyayo.</small>
+  </div>
   <app-date-picker
     [formControl]="$any(registerForm.controls['dateOfBirth'])"
     [maxDate]="maxDate"
     [label]="'Itariki yamavuko'"
   ></app-date-picker>
+  <div
+    *ngIf="
+      registerForm.get('dateOfBirth')?.invalid &&
+      registerForm.get('dateOfBirth')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Itariki yamavuko ni ngombwa.</small>
+  </div>
   <app-text-input
     [formControl]="$any(registerForm.controls['city'])"
     [label]="'Umugi'"
   ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.get('city')?.invalid && registerForm.get('city')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Umugi ni ngombwa.</small>
+  </div>
   <app-text-input
     [formControl]="$any(registerForm.controls['country'])"
     [label]="'Igihugu'"
   ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.get('country')?.invalid &&
+      registerForm.get('country')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Igihugu ni ngombwa.</small>
+  </div>
   <app-text-input
     [formControl]="$any(registerForm.controls['password'])"
     [label]="'Ijambo ryibanga'"
     [type]="'password'"
   ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.get('password')?.invalid &&
+      registerForm.get('password')?.touched
+    "
+    class="text-danger"
+  >
+    <small
+      >Ijambo ry'ibanga ni ngombwa kandi rigomba kuba nibura inyuguti 6.</small
+    >
+  </div>
   <app-text-input
     [formControl]="$any(registerForm.controls['confirmPassword'])"
     [label]="'Ijambo ryibanga ushimangire'"
     [type]="'password'"
   ></app-text-input>
+  <div
+    *ngIf="
+      registerForm.hasError('mismatch') &&
+      registerForm.get('confirmPassword')?.touched
+    "
+    class="text-danger"
+  >
+    <small>Ijambo ry'ibanga ntabwo ryumvikanye.</small>
+  </div>
 
   <div class="row" *ngIf="validationErrors">
     <ul class="text-danger">
       <li *ngFor="let error of validationErrors">
         {{ error }}
       </li>
-      "
     </ul>
   </div>
 
   <div class="text-center">
     <button
-      [disabled]="!registerForm.valid"
+      [disabled]="!registerForm.valid || loading"
       class="btn btn-success me-2"
       type="submit"
     >
-      Iyandikishe
+      {{ loading ? "Iyandikishe..." : "Iyandikishe" }}
     </button>
     <button class="btn btn-default" type="button" (click)="cancel()">
       Guhagarika

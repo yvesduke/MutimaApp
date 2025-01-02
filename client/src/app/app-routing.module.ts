@@ -15,11 +15,24 @@ import { memberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { adminGuard } from './_guards/admin.guard';
 import { LearnMoreComponent } from './learn-more/learn-more.component';
+import { EmailConfirmationRequiredComponent } from './email-confirmation-required/email-confirmation-required.component';
+import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './account/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'LearnMore', component: LearnMoreComponent },
+  {
+    path: 'email-confirmation-required',
+    component: EmailConfirmationRequiredComponent,
+  },
+  { path: 'confirm-email', component: ConfirmEmailComponent },
+  { path: 'email-confirmed', component: EmailConfirmedComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: '',
     runGuardsAndResolvers: 'always',

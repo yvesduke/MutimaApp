@@ -61,7 +61,7 @@ public class UsersController : BaseApiController
 
         if (await _uow.Complete()) return NoContent();
 
-        return BadRequest("Failed to update user");
+        return BadRequest("Ntibishotse guhindura umukoresha");
     }
 
     [HttpPost("add-photo")]

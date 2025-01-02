@@ -19,14 +19,16 @@ export class MembersService {
   user?: User | null;
   userParams: UserParams | undefined;
 
-  constructor(private http: HttpClient, private accountService: AccountService) { 
+  constructor(
+    private http: HttpClient,
+    private accountService: AccountService
+  ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        if (user)
-          this.userParams = new UserParams(user);
-          this.user = user;
-      }
-    })
+      next: (user) => {
+        if (user) this.userParams = new UserParams(user);
+        this.user = user;
+      },
+    });
   }
 
   getUserParams() {
@@ -53,12 +55,6 @@ export class MembersService {
       userParams.pageNumber,
       userParams.pageSize
     );
-    // let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
-
-    // params = params.append('minAge', userParams.minAge);
-    // params = params.append('maxAge', userParams.maxAge);
-    // params = params.append('gender', userParams.gender);
-    // params = params.append('orderBy', userParams.orderBy);
     params = params.append('minAge', userParams.minAge);
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
@@ -77,13 +73,9 @@ export class MembersService {
   }
 
   getMember(username: string) {
-    // const member = [...this.memberCache.values()]
-    //   .reduce((arr, elem) => arr.concat(elem.result), [])
-    //   .find((member: Member) => member.userName === username);
-
     const member = [...this.memberCache.values()]
-       .reduce((arr, elem) => arr.concat(elem.result), [])
-       .find((member: Member) => member.userName === username);
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((member: Member) => member.userName === username);
 
     if (member) return of(member);
 

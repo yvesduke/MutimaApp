@@ -33,6 +33,11 @@ import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from './_services/customRouteReuseStrategy';
 import { ConfirmDialogComponent } from './Modals/modals/confirm-dialog/confirm-dialog.component';
 import { LearnMoreComponent } from './learn-more/learn-more.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ResendConfirmationEmailComponent } from './resend-confirmation-email/resend-confirmation-email.component';
+import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.component';
+import { ResetPasswordComponent } from './account/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +63,10 @@ import { LearnMoreComponent } from './learn-more/learn-more.component';
     RolesModalComponent,
     ConfirmDialogComponent,
     LearnMoreComponent,
+    ResendConfirmationEmailComponent,
+    EmailConfirmedComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
